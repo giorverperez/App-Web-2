@@ -84,7 +84,7 @@ const ingredientes: Ingrediente[] = [
     },
     // Add more objects as needed
 ];
-/*
+
 // Using forEach
 console.log("Using forEach:");
 console.log("Registros:");
@@ -174,4 +174,3 @@ async function fetchData() {
 }
 
 fetchData();
-*/
