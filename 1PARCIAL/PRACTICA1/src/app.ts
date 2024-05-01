@@ -60,13 +60,62 @@ const registros: Registro[] = [
     }
 ];
 
+// 4. Crear una función que reciba el arreglo del punto anterior y un ID (u otro atributo que
+//no se repita) y proceder a eliminar el elemento del arreglo.
 
-//pregunta 4
-function eliminarPorId(lista: any[], id: number): any[] {
-    return lista.filter(item => item.id !== id);
+
+function eliminarElemento(arreglo: any[], id: number): void {
+    const index = arreglo.findIndex((element) => element.id === id);
+    if (index !== -1) {
+        arreglo.splice(index, 1);
+    }
 }
 
-const pacientesActualizados = eliminarPorId(pacientes, 2);
-const platosActualizados = eliminarPorId(platos, 3);
-const registrosActualizados = eliminarPorId(registros, 4);
-  
+//5.Agregar a la función anterior un Callback que le permita acceder por última vez a los
+//datos del elemento eliminado y mostrarlo por consola
+
+
+function eliminarElementos(arreglo: any[], id: number, callback: (element: any) => void): void {
+    const index = arreglo.findIndex((element) => element.id === id);
+    if (index !== -1) {
+        const deletedElement = arreglo.splice(index, 1)[0];
+        callback(deletedElement);
+    }
+}
+
+//6.
+
+// Definir interfaz para la respuesta del servicio REST
+interface RestResponse {
+  data: (Plato | Paciente | Registro)[];
+}
+
+// Función para consultar el servicio REST
+async function fetchData(url: string): Promise<RestResponse | null> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    // Aquí puedes validar que la respuesta cumpla con la estructura esperada antes de retornarla
+    return data as RestResponse;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+
+// URL de ejemplo de un servicio REST gratuito
+const apiUrl = "https://jsonplaceholder.typicode.com/posts";
+
+// Ejemplo de uso de la función fetchData
+fetchData(apiUrl).then(response => {
+  if (response) {
+    console.log("Data from REST service:", response);
+  } else {
+    console.log("Failed to fetch data from REST service.");
+  }
+});
+
+export { fetchData };
