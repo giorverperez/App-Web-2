@@ -1,6 +1,8 @@
 // Definir una interfaz por cada objeto y asignarla como tipo de objeto
 
 export interface Plato {
-    getID(): string;
-    getNombre(): string;
+    id: number;
+    Nombre: string;
 }
+
+
