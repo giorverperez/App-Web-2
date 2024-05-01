@@ -3,7 +3,7 @@ import  { Plato } from "./interface/Plato";
 import { Registro } from "./interface/Registro"
 
   
-  // Creando un array de objetos basado en las entidades con más atributos y más IDs
+  // 3. Creando un array de objetos basado en las entidades con más atributos y más IDs
  
 const pacientes: Paciente[] = [
     { id: 2, nombre: "Pedro", Identificacion: "123456789" },
@@ -61,4 +61,12 @@ const registros: Registro[] = [
 ];
 
 
+//pregunta 4
+function eliminarPorId(lista: any[], id: number): any[] {
+    return lista.filter(item => item.id !== id);
+}
+
+const pacientesActualizados = eliminarPorId(pacientes, 2);
+const platosActualizados = eliminarPorId(platos, 3);
+const registrosActualizados = eliminarPorId(registros, 4);
   
