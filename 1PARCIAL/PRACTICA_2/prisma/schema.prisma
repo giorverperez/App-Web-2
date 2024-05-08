@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Plato {
+  id    Int     @id @default(autoincrement())
+  nombre String
+  registros Registro[]
+}
+
+model Paciente {
+  id        Int     @id @default(autoincrement())
+  nombre     String
+  identificacion   String
+  registros Registro[]
+}
+
+model Registro {
+  id       Int     @id @default(autoincrement())
+  platoId      Int
+  pacienteId   Int
+  plato        Plato @relation(fields: [platoId], references: [id])
+  paciente     Paciente @relation(fields: [pacienteId], references: [id])
+  fecha        DateTime
+  hora         DateTime
+  caloriasConsumidas Int
+  numeroPorciones Int
+  estado Boolean @default(true)
+}
