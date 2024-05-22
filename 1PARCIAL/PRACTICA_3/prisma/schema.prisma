@@ -1,21 +1,23 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
-
 
 model Plato {
   id    Int     @id @default(autoincrement())
   nombre String
   registros Registro[]
+  estado String @default("activo")
 }
 
 model Paciente {
@@ -23,6 +25,7 @@ model Paciente {
   nombre     String
   identificacion   String
   registros Registro[]
+  estado String @default("activo")
 }
 
 model Registro {
@@ -35,5 +38,5 @@ model Registro {
   hora         DateTime
   caloriasConsumidas Int
   numeroPorciones Int
-  estado Boolean @default(true)
+  estado String @default("activo")
 }
