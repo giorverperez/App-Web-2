@@ -42,3 +42,12 @@ model Registro {
   numeroPorciones Int
   estado String @default("activo")
 }
+
+model Auditoria{
+	id Int @id @default(autoincrement())
+	entidad String
+	detalle String
+	fecha String
+	id_auditado Int
+	estado String @default("Activo")
+}

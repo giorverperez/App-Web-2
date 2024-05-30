@@ -4,78 +4,82 @@ import { PrismaClient } from '@prisma/client';
 const router = Router();
 const prisma = new PrismaClient();
 
-// Obtener todos los pacientes
+// Obtener todas las auditorías
 router.get("/", async (req, res) => {
   try {
-    const pacientes = await prisma.paciente.findMany({
-      where: { estado: "activo" },
+    const auditorias = await prisma.auditoria.findMany({
+      where: { estado: "Activo" },
     });
-    res.json(pacientes);
+    res.json(auditorias);
   } catch (error) {
     res.json({ error });
   }
 });
 
-// Obtener un paciente por ID
+// Obtener una auditoría por ID
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const paciente = await prisma.paciente.findUnique({
+    const auditoria = await prisma.auditoria.findUnique({
       where: { id: Number(id) },
     });
-    res.json(paciente);
+    res.json(auditoria);
   } catch (error) {
     res.json({ error });
   }
 });
 
-// Crear un nuevo paciente
+// Crear una nueva auditoría
 router.post("/", async (req, res) => {
-  const { nombre, identificacion, estado = "activo" } = req.body;
+  const { entidad, detalle, fecha, id_auditado, estado = "Activo" } = req.body;
   try {
-    const pacienteCreado = await prisma.paciente.create({
+    const auditoriaCreada = await prisma.auditoria.create({
       data: {
-        nombre,
-        identificacion,
+        entidad,
+        detalle,
+        fecha,
+        id_auditado,
         estado,
       },
     });
-    res.json(pacienteCreado);
+    res.json(auditoriaCreada);
   } catch (error) {
     res.json({ error });
   }
 });
 
-// Actualizar un paciente por ID
+// Actualizar una auditoría por ID
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { nombre, identificacion, estado } = req.body;
+  const { entidad, detalle, fecha, id_auditado, estado } = req.body;
   try {
-    const pacienteActualizado = await prisma.paciente.update({
+    const auditoriaActualizada = await prisma.auditoria.update({
       where: { id: Number(id) },
       data: {
-        nombre,
-        identificacion,
+        entidad,
+        detalle,
+        fecha,
+        id_auditado,
         estado,
       },
     });
-    res.json(pacienteActualizado);
+    res.json(auditoriaActualizada);
   } catch (error) {
     res.json({ error });
   }
 });
 
-// Eliminar un paciente por ID (marcar como eliminado)
+// Eliminar una auditoría por ID (marcar como eliminado)
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    await prisma.paciente.update({
+    await prisma.auditoria.update({
       where: { id: Number(id) },
       data: {
-        estado: "eliminado",
+        estado: "Eliminado",
       },
     });
-    res.json("Paciente marcado como eliminado");
+    res.json("Auditoría marcada como eliminada");
   } catch (error) {
     res.json({ error });
   }
