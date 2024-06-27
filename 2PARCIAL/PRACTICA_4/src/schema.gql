@@ -1,0 +1,95 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Plato {
+  id: ID!
+  nombre: String!
+  estado: String!
+  registros: [Registro!]
+}
+
+type Registro {
+  id: ID!
+  plato: Plato!
+  paciente: Paciente!
+  fecha: String!
+  hora: String!
+  caloriasConsumidas: Int!
+  numeroPorciones: Int!
+  estado: String!
+}
+
+type Paciente {
+  id: ID!
+  nombre: String!
+  identificacion: String!
+  estado: String!
+  registros: [Registro!]
+}
+
+type Query {
+  pacientes(estado: String): [Paciente!]!
+  paciente(id: Float!): Paciente!
+  platos(estado: String): [Plato!]!
+  plato(id: Float!): Plato!
+  registros(estado: String): [Registro!]!
+  registro(id: Float!): Registro!
+}
+
+type Mutation {
+  createPaciente(createPacienteInput: CreatePacienteInput!): Paciente!
+  updatePaciente(updatePacienteInput: UpdatePacienteInput!): Paciente!
+  removePaciente(id: Float!): Paciente!
+  createPlato(createPlatoInput: CreatePlatoInput!): Plato!
+  updatePlato(updatePlatoInput: UpdatePlatoInput!): Plato!
+  removePlato(id: Float!): Plato!
+  createRegistro(createRegistroInput: CreateRegistroInput!): Registro!
+  updateRegistro(updateRegistroInput: UpdateRegistroInput!): Registro!
+  removeRegistro(id: Float!): Registro!
+}
+
+input CreatePacienteInput {
+  nombre: String!
+  identificacion: String!
+  estado: String!
+}
+
+input UpdatePacienteInput {
+  nombre: String
+  identificacion: String
+  estado: String
+  id: ID!
+}
+
+input CreatePlatoInput {
+  nombre: String!
+  estado: String!
+}
+
+input UpdatePlatoInput {
+  nombre: String
+  estado: String
+  id: ID!
+}
+
+input CreateRegistroInput {
+  platoId: Int!
+  pacienteId: Int!
+  fecha: String!
+  hora: String!
+  caloriasConsumidas: Int!
+  numeroPorciones: Int!
+  estado: String!
+}
+
+input UpdateRegistroInput {
+  platoId: Int
+  pacienteId: Int
+  fecha: String
+  hora: String
+  caloriasConsumidas: Int
+  numeroPorciones: Int
+  estado: String
+  id: ID!
+}
