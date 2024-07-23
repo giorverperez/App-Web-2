@@ -1,0 +1,42 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Instrumento {
+  id: ID!
+  codigo: String
+  conocido: String
+  clasedeInstrumento: String
+  material: String
+  costo_aproximado: Float
+  fechadecreacion: Int
+  empresa: String
+  estado: String!
+}
+
+type Query {
+  instrumentos: [Instrumento!]!
+  instrumento(id: Float!): Instrumento!
+}
+
+type Mutation {
+  createInstrumento(createInstrumentoInput: CreateInstrumentoInput!): Instrumento!
+  updateInstrumento(updateInstrumentoInput: UpdateInstrumentoInput!): Instrumento!
+  removeInstrumento(id: Float!): Instrumento!
+  softRemoveInstrumento(id: Float!): Instrumento!
+}
+
+input CreateInstrumentoInput {
+  id: Int
+  codigo: String
+  conocido: String
+  clasedeInstrumento: String
+  material: String
+  costo_aproximado: Float
+  fechadecreacion: Int
+  empresa: String
+}
+
+input UpdateInstrumentoInput {
+  id: ID!
+}
